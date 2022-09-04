@@ -10,7 +10,7 @@ import 'lego-bricks/dist/bundle.css'
 import 'cropperjs/dist/cropper.css'
 import { RespData } from './store/respTypes'
 export type ICustomAxiosConfig = AxiosRequestConfig & {
-  opName?: string;
+  opName?: string
 }
 
 const app = createApp(App)

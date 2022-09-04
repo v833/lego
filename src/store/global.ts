@@ -1,12 +1,12 @@
 import { Module } from 'vuex'
 import { GlobalDataProps } from './index'
 export interface GlobalStatus {
-  opNames: { [key: string]: boolean };
-  requestNumber: number;
+  opNames: { [key: string]: boolean }
+  requestNumber: number
   error: {
-    status: boolean;
-    message?: string;
-  };
+    status: boolean
+    message?: string
+  }
 }
 
 const global: Module<GlobalStatus, GlobalDataProps> = {
@@ -18,13 +18,13 @@ const global: Module<GlobalStatus, GlobalDataProps> = {
     }
   },
   mutations: {
-    startLoading (state, { opName }) {
+    startLoading(state, { opName }) {
       state.requestNumber++
       if (opName) {
         state.opNames[opName] = true
       }
     },
-    finishLoading (state, { opName }) {
+    finishLoading(state, { opName }) {
       setTimeout(() => {
         state.requestNumber--
         delete state.opNames[opName]
@@ -38,7 +38,7 @@ const global: Module<GlobalStatus, GlobalDataProps> = {
     isLoading: (state) => {
       return state.requestNumber > 0
     },
-    isOpLoading: state => (opName: string) => {
+    isOpLoading: (state) => (opName: string) => {
       return state.opNames[opName]
     }
   }

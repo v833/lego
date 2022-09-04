@@ -2,15 +2,15 @@ import { VNode, h } from 'vue'
 import { AllComponentProps } from 'lego-bricks'
 import { AllFormProps } from './store/editor'
 export interface PropToForm {
-  component: string;
-  subComponent?: string;
-  extraProps?: { [key: string]: any };
-  text?: string;
-  options?: { text: string | VNode; value: any }[];
-  initalTransform?: (v: any) => any;
-  afterTransform?: (v: any) => any;
-  valueProp?: string;
-  eventName?: string;
+  component: string
+  subComponent?: string
+  extraProps?: { [key: string]: any }
+  text?: string
+  options?: { text: string | VNode; value: any }[]
+  initalTransform?: (v: any) => any
+  afterTransform?: (v: any) => any
+  valueProp?: string
+  eventName?: string
 }
 
 export type PropsToForms = {
@@ -20,12 +20,12 @@ const fontFamilyArr = [
   { text: '宋体', value: '"SimSun","STSong"' },
   { text: '黑体', value: '"SimHei","STHeiti"' },
   { text: '楷体', value: '"KaiTi","STKaiti"' },
-  { text: '仿宋', value: '"FangSong","STFangsong"' },
+  { text: '仿宋', value: '"FangSong","STFangsong"' }
 ]
-const fontFamilyOptions = fontFamilyArr.map(font => {
+const fontFamilyOptions = fontFamilyArr.map((font) => {
   return {
     value: font.value,
-    text: <span style={{ fontFamily: font.value}}>{font.text}</span> as VNode
+    text: (<span style={{ fontFamily: font.value }}>{font.text}</span>) as VNode
   }
 })
 const defaultHandler = {
@@ -37,8 +37,8 @@ const defaultHandler = {
 }
 const pxToNumberHandler: PropToForm = {
   component: 'a-input-number',
-  initalTransform: (v: string) => v ? parseInt(v): 0,
-  afterTransform: (e: number) => e ? `${e}px` : '',
+  initalTransform: (v: string) => (v ? parseInt(v) : 0),
+  afterTransform: (e: number) => (e ? `${e}px` : '')
 }
 
 export const mapPropsToForms: PropsToForms = {
@@ -47,7 +47,7 @@ export const mapPropsToForms: PropsToForms = {
     text: '文本',
     component: 'a-textarea',
     extraProps: { rows: 3 },
-    afterTransform: (e: any) => e.target.value,
+    afterTransform: (e: any) => e.target.value
   },
   fontSize: {
     text: '字号',
@@ -58,7 +58,7 @@ export const mapPropsToForms: PropsToForms = {
     component: 'a-slider',
     extraProps: { min: 0, max: 3, step: 0.1 },
     initalTransform: (v: string) => parseFloat(v),
-    afterTransform: (e: number) => e.toString(),
+    afterTransform: (e: number) => e.toString()
   },
   textAlign: {
     component: 'a-radio-group',
@@ -69,35 +69,32 @@ export const mapPropsToForms: PropsToForms = {
       { value: 'center', text: '中' },
       { value: 'right', text: '右' }
     ],
-    afterTransform: (e: any) => e.target.value,
+    afterTransform: (e: any) => e.target.value
   },
   fontFamily: {
     component: 'a-select',
     subComponent: 'a-select-option',
     text: '字体',
-    options: [
-      { value: '', text: '无' },
-      ...fontFamilyOptions
-    ]
+    options: [{ value: '', text: '无' }, ...fontFamilyOptions]
   },
   fontWeight: {
     component: 'icon-switch',
     initalTransform: (v: string) => v === 'bold',
-    afterTransform: (e: boolean) => e ? 'bold' : 'normal',
+    afterTransform: (e: boolean) => (e ? 'bold' : 'normal'),
     valueProp: 'checked',
     extraProps: { iconName: 'BoldOutlined', tip: '加粗' }
   },
   fontStyle: {
     component: 'icon-switch',
     initalTransform: (v: string) => v === 'italic',
-    afterTransform: (e: boolean) => e ? 'italic' : 'normal',
+    afterTransform: (e: boolean) => (e ? 'italic' : 'normal'),
     valueProp: 'checked',
     extraProps: { iconName: 'ItalicOutlined', tip: '斜体' }
   },
   textDecoration: {
     component: 'icon-switch',
     initalTransform: (v: string) => v === 'underline',
-    afterTransform: (e: boolean) => e ? 'underline' : 'none',
+    afterTransform: (e: boolean) => (e ? 'underline' : 'none'),
     valueProp: 'checked',
     extraProps: { iconName: 'UnderlineOutlined', tip: '下划线' }
   },
@@ -172,8 +169,8 @@ export const mapPropsToForms: PropsToForms = {
   opacity: {
     component: 'a-slider',
     text: '透明度',
-    initalTransform: (v: number) => v ? v * 100 : 100,
-    afterTransform: (e: number) => (e / 100),
+    initalTransform: (v: number) => (v ? v * 100 : 100),
+    afterTransform: (e: number) => e / 100,
     extraProps: { min: 0, max: 100, reverse: true }
   },
   boxShadow: {
@@ -222,6 +219,6 @@ export const mapPropsToForms: PropsToForms = {
         return ''
       }
     },
-    afterTransform: (e: string) => e ? `url('${e}')` : ''
-  },
+    afterTransform: (e: string) => (e ? `url('${e}')` : '')
+  }
 }

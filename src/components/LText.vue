@@ -3,31 +3,25 @@
     {{ text }}
   </component>
 </template>
+
 <script lang="ts">
-import { defineComponent } from 'vue'
-import useComponentCommon from '../hooks/useComponentCommon'
 import { transformToComponentProps, textDefaultProps, textStylePropNames } from '../defaultProps'
 const defaultProps = transformToComponentProps(textDefaultProps)
-// array that contains style props
-export default defineComponent({
-  name: 'l-text',
-  props: {
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    ...defaultProps
+</script>
+
+<script lang="ts" setup name="l-test">
+import useComponentCommon from '@/hooks/useComponentCommon'
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  tag: {
+    type: String,
+    default: 'div'
   },
-  setup(props) {
-    // 重用并且简化
-    // 抽离并且获得 styleProps
-    const { styleProps, handleClick } = useComponentCommon(props, textStylePropNames)
-    return {
-      styleProps,
-      handleClick
-    }
-  }
+  ...defaultProps
 })
+
+const { styleProps, handleClick } = useComponentCommon(props, textStylePropNames)
 </script>
 
 <style scoped>
