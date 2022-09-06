@@ -73,7 +73,7 @@ export const mapPropsToForms: PropsToForms = {
   },
   fontFamily: {
     component: 'a-select',
-    subComponent: 'a-select-option',
+    subComponent: 'option',
     text: '字体',
     options: [{ value: '', text: '无' }, ...fontFamilyOptions]
   },
@@ -139,7 +139,7 @@ export const mapPropsToForms: PropsToForms = {
   borderStyle: {
     ...defaultHandler,
     component: 'a-select',
-    subComponent: 'a-select-option',
+    subComponent: 'option',
     text: '边框类型',
     options: [
       { value: 'none', text: '无' },
@@ -190,7 +190,7 @@ export const mapPropsToForms: PropsToForms = {
   actionType: {
     ...defaultHandler,
     component: 'a-select',
-    subComponent: 'a-select-option',
+    subComponent: 'option',
     text: '点击',
     options: [
       { value: '', text: '无' },

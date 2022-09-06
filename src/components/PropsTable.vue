@@ -31,7 +31,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, defineComponent, defineEmit, PropType, VNode } from 'vue'
+import { computed, defineEmit, PropType, render, VNode } from 'vue'
 import { reduce } from 'lodash-es'
 import { mapPropsToForms, PropsToForms } from '../propsMap'
 import { AllComponentProps } from 'lego-bricks'
@@ -56,8 +56,8 @@ interface FormProps {
 
 const props = defineProps({
   props: {
-    // type: Object as PropType<AllComponentProps>,
-    type: Object,
+    type: Object as PropType<AllComponentProps>,
+    // type: Object,
     required: true
   }
 })

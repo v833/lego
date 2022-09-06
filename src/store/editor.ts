@@ -162,7 +162,7 @@ const pageDefaultProps = {
 const debounceChange = (callback: (...args: any) => void, timeout = 1000) => {
   let timer = 0
   return (...args: any) => {
-    console.log(timer)
+    // console.log(timer)
     clearTimeout(timer)
     timer = window.setTimeout(() => {
       timer = 0

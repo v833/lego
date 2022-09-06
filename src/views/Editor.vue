@@ -25,6 +25,7 @@
         <props-table
           v-if="currentElement && currentElement.props"
           :props="currentElement.props"
+          @change="handleChange"
         ></props-table>
       </a-layout-sider>
     </a-layout>
@@ -53,6 +54,17 @@ const addItem = (props: Partial<TextComponentProps>) => {
 const setActive = (id: string) => {
   store.commit('setActive', id)
 }
+const handleChange = (e: any) => {
+  // console.log(e)
+  store.commit('updateComponent', e)
+}
+// const updatePosition = (data: { left: number; top: number; id: string }) => {
+//   const { id } = data
+//   const updatedData = pickBy<number>(data, (v, k) => k !== 'id')
+//   const keysArr = Object.keys(updatedData)
+//   const valuesArr = Object.values(updatedData).map((v) => v + 'px')
+//   store.commit('updateComponent', { key: keysArr, value: valuesArr, id })
+// }
 </script>
 
 <style>
