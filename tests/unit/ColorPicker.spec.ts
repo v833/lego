@@ -1,14 +1,25 @@
 import { mount, VueWrapper } from '@vue/test-utils'
 import rgbHex from 'rgb-hex'
 import ColorPicker from '@/components/ColorPicker.vue'
-const defaultColors = ['#ffffff', '#f5222d', '#fa541c', '#fadb14', '#52c41a', '#1890ff', '#722ed1', '#8c8c8c', '#000000', '']
+const defaultColors = [
+  '#ffffff',
+  '#f5222d',
+  '#fa541c',
+  '#fadb14',
+  '#52c41a',
+  '#1890ff',
+  '#722ed1',
+  '#8c8c8c',
+  '#000000',
+  ''
+]
 let wrapper: VueWrapper<any>
 describe('UserProfile component', () => {
   beforeAll(() => {
     wrapper = mount(ColorPicker, {
       props: {
         value: '#ffffff'
-      },
+      }
     })
   })
   it('should render the correct interface', () => {
@@ -16,8 +27,9 @@ describe('UserProfile component', () => {
     // <ul class="picked-color-list">
     // <li class="item-0" or class="transparent-back">
     // <div></div>
-    // </li></ul>
-    
+    // </li>
+    // </ul>
+
     // 测试左侧是否为 input，类型和值是否正确
     expect(wrapper.find('input').exists()).toBeTruthy()
     const input = wrapper.get('input').element
