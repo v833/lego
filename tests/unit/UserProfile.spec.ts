@@ -8,17 +8,20 @@ jest.mock('ant-design-vue', () => ({
     success: jest.fn()
   }
 }))
+
 const mockedRoutes: string[] = []
 jest.mock('vue-router', () => ({
   useRouter: () => ({
     push: (url: string) => mockedRoutes.push(url)
   })
 }))
+// jest.mock('vuex')
+
 const mockComponent = {
-  template: '<div><slot></slot></div>'
+  template: '<div><slot /></div>'
 }
 const mockComponent2 = {
-  template: '<div><slot></slot><slot name="overlay"></slot></div>'
+  template: '<div><slot name="overlay" /></div>'
 }
 const globalComponents = {
   'a-button': mockComponent,
@@ -30,6 +33,7 @@ const globalComponents = {
 
 describe('UserProfile component', () => {
   beforeAll(() => {
+    // timer由jest接管
     jest.useFakeTimers()
     wrapper = mount(UserProfile, {
       props: {
@@ -37,30 +41,29 @@ describe('UserProfile component', () => {
       },
       global: {
         components: globalComponents,
+        // 真实挂载
         provide: {
           store
         }
       }
     })
   })
-  it('should render login button when login is false', () => {
-    console.log(wrapper.html())
+  it('should render login button when login is false', async () => {
     expect(wrapper.get('div').text()).toBe('登录')
-  })
-  it('should call message and update store when clicking login', async () => {
     await wrapper.get('div').trigger('click')
     expect(message.success).toHaveBeenCalled()
-    expect(store.state.user.userName).toBe('viking')
+    expect(store.state.user.data.nickName).toBe('test')
   })
-  it('should render username when login is true', async () => {
+  it('should call message and update store when clicking login', async () => {
     await wrapper.setProps({
-      user: { isLogin: true, userName: 'viking'}
+      user: { isLogin: true, data: { nickName: 'test' } }
     })
     console.log(wrapper.html())
-    expect(wrapper.get('.user-profile-component').html()).toContain('viking')
-    expect(wrapper.find('.user-profile-dropdown').exists()).toBeTruthy()
+    // expect(wrapper.get('.user-profile-component').html()).toContain('test')
+    expect(wrapper.find('.user-profile-dropdown')).toBeTruthy()
   })
-  it('should call logout and show message, call router.push after timeout', async () => {
+  it('should render nickName when login is true', async () => {})
+  it.only('should call logout and show message, call router.push after timeout', async () => {
     await wrapper.get('.user-profile-dropdown div').trigger('click')
     expect(store.state.user.isLogin).toBeFalsy()
     expect(message.success).toHaveBeenCalledTimes(1)
@@ -68,6 +71,6 @@ describe('UserProfile component', () => {
     expect(mockedRoutes).toEqual(['/'])
   })
   afterEach(() => {
-    (message as jest.Mocked<typeof message>).success.mockReset()
+    ;(message as jest.Mocked<typeof message>).success.mockReset()
   })
 })

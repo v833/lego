@@ -391,7 +391,7 @@ const editor: Module<EditorProps, GlobalDataProps> = {
       )
       if (updatedComponent) {
         if (isRoot) {
-          ;(updatedComponent as any)[key as string] = value
+          (updatedComponent as any)[key as string] = value
         } else {
           const oldValue = Array.isArray(key)
             ? key.map((key) => updatedComponent.props[key])

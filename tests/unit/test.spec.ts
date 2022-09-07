@@ -13,14 +13,14 @@ test('test object', () => {
   expect({ name: 'a' }).toEqual({ name: 'a' })
 })
 
-const fetchUser = (cb:any) => {
+const fetchUser = (cb: any) => {
   setTimeout(() => {
     cb('hello')
   },100)
 }
 
 test('test callback', (done) => {
-  fetchUser((data:any) => {
+  fetchUser((data: any) => {
     expect(data).toBe('hello')
     done()
   })

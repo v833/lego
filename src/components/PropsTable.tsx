@@ -15,15 +15,15 @@ const mapToComponent = {
 } as any
 
 interface FormProps {
-  component: string;
-  subComponent?: string;
-  value: string;
-  extraProps?: { [key: string]: any };
-  text?: string;
-  options?: { text: string | VNode; value: any }[];
-  valueProp: string;
-  eventName: string;
-  events: { [key: string]: (e: any) => void };
+  component: string
+  subComponent?: string
+  value: string
+  extraProps?: { [key: string]: any }
+  text?: string
+  options?: { text: string | VNode; value: any }[]
+  valueProp: string
+  eventName: string
+  events: { [key: string]: (e: any) => void }
 }
 function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
