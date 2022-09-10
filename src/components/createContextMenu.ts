@@ -1,9 +1,9 @@
 import { createVNode, render } from 'vue'
 import ContextMenu from './ContextMenu.vue'
 export interface ActionItem {
-  action: (cid?: string) => void
-  text: string
-  shortcut: string
+  action: (cid?: string) => void;
+  text: string;
+  shortcut: string;
 }
 const createContextMenu = (actions: ActionItem[], triggerClass = 'edit-wrapper') => {
   const container = document.createElement('div')

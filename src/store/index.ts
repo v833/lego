@@ -8,22 +8,18 @@ import global, { GlobalStatus } from './global'
 import { objToQueryString } from '../helper'
 import { forEach } from 'lodash-es'
 export interface GlobalDataProps {
-  user: UserProps
-  templates: TemplatesProps
-  editor: EditorProps
-  global: GlobalStatus
+  user: UserProps;
+  templates: TemplatesProps;
+  editor: EditorProps;
+  global: GlobalStatus;
 }
 export interface ActionPayload {
-  urlParams?: { [key: string]: any }
-  data?: any
-  searchParams?: { [key: string]: any }
+  urlParams?: { [key: string]: any };
+  data?: any;
+  searchParams?: { [key: string]: any };
 }
 //第二步，确定参数
-export function actionWrapper(
-  url: string,
-  commitName: string,
-  config: AxiosRequestConfig = { method: 'get' }
-) {
+export function actionWrapper(url: string, commitName: string, config: AxiosRequestConfig = { method: 'get'}) {
   // 第一步 不管三七二十一，先返回一个函数和原来的函数处理一摸一样
   return async (context: ActionContext<any, any>, payload: ActionPayload = {}) => {
     //第三部 写内部重复的逻辑
@@ -45,7 +41,7 @@ export function actionWrapper(
       // newURL += '?' + objToQueryString(searchParams)
     }
     const resp = await axios(newURL, newConfig)
-    context.commit(commitName, { payload, ...resp.data })
+    context.commit(commitName, { payload ,...resp.data})
     return resp.data
   }
 }

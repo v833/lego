@@ -9,165 +9,105 @@ import { RespWorkData, ListData, RespData, RespListData } from './respTypes'
 export type MoveDirection = 'Up' | 'Down' | 'Left' | 'Right'
 
 export interface HistoryProps {
-  id: string
-  componentId: string
-  type: 'add' | 'delete' | 'modify'
-  data: any
-  index?: number
+  id: string;
+  componentId: string;
+  type: 'add' | 'delete' | 'modify';
+  data: any;
+  index?: number;
 }
 export interface UpdateComponentData {
-  key: keyof AllComponentProps | Array<keyof AllComponentProps>
-  value: string | string[]
-  id: string
-  isRoot?: boolean
+  key: keyof AllComponentProps | Array<keyof AllComponentProps>;
+  value: string | string[];
+  id: string;
+  isRoot?: boolean;
 }
 export interface ChannelProps {
-  id: number
-  name: string
-  workId: number
-  status: number
+  id: number;
+  name: string;
+  workId: number;
+  status: number;
 }
 export interface EditorProps {
   // 供中间编辑器渲染的数组
-  components: ComponentData[]
+  components: ComponentData[];
   // 当前编辑的是哪个元素，uuid
-  currentElement: string
+  currentElement: string;
   // 当然最后保存的时候还有有一些项目信息，这里并没有写出，等做到的时候再补充
-  page: PageData
+  page: PageData;
   // 当前被复制的组件
-  copiedComponent?: ComponentData
+  copiedComponent?: ComponentData;
   // 当前操作的历史记录
-  histories: HistoryProps[]
+  histories: HistoryProps[];
   // 当前历史记录的操作位置
-  historyIndex: number
+  historyIndex: number;
   // 开始更新时的缓存值
-  cachedOldValues: any
+  cachedOldValues: any;
   // 保存最多历史条目记录数
-  maxHistoryNumber: number
+  maxHistoryNumber: number;
   // 数据是否有修改
-  isDirty: boolean
+  isDirty: boolean;
   // 当前 work 的 channels
-  channels: ChannelProps[]
+  channels: ChannelProps[];
 }
 export interface PageProps {
-  backgroundColor: string
-  backgroundImage: string
-  backgroundRepeat: string
-  backgroundSize: string
-  height: string
+  backgroundColor: string;
+  backgroundImage: string;
+  backgroundRepeat: string;
+  backgroundSize: string;
+  height: string;
 }
 export type AllFormProps = PageProps & AllComponentProps
 export interface PageData {
-  id?: number
-  props?: PageProps
-  title?: string
-  desc?: string
-  coverImg?: string
-  uuid?: string
-  setting?: { [key: string]: any }
-  isTemplate?: boolean
-  isHot?: boolean
-  isNew?: boolean
-  author?: string
-  copiedCount?: number
-  status?: number
-  user?: {
-    gender: string
-    nickName: string
-    picture: string
-    userName: string
-  }
+  id?: number;
+  props?: PageProps;
+  title?: string;
+  desc?: string;
+  coverImg?: string;
+  uuid?: string;
+  setting?: { [key: string]: any };
+  isTemplate?: boolean;
+  isHot?: boolean;
+  isNew?: boolean;
+  author?: string;
+  copiedCount?: number;
+  status?: number;
+  user? : {
+    gender: string;
+    nickName: string;
+    picture: string;
+    userName: string;
+  };
 }
 export interface ComponentData {
   // 这个元素的 属性，属性请详见下面
-  props: Partial<AllComponentProps>
+  props: Partial<AllComponentProps>;
   // id，uuid v4 生成
-  id: string
-  // 业务组件库名称 l-text，l-image 等等
-  name: 'l-text' | 'l-image' | 'l-shape'
+  id: string;
+  // 业务组件库名称 l-text，l-image 等等 
+  name: 'l-text' | 'l-image' | 'l-shape';
   // 图层是否隐藏
-  isHidden?: boolean
+  isHidden?: boolean;
   // 图层是否锁定
-  isLocked?: boolean
+  isLocked?: boolean;
   // 图层名称
-  layerName?: string
+  layerName?: string;
 }
 export const testComponents: ComponentData[] = [
-  {
-    id: uuidv4(),
-    name: 'l-text',
-    layerName: '图层1',
-    props: {
-      ...textDefaultProps,
-      text: 'hello',
-      fontSize: '20px',
-      color: '#000000',
-      lineHeight: '1',
-      textAlign: 'left',
-      fontFamily: '',
-      width: '100px',
-      height: '100px',
-      backgroundColor: '#efefef',
-      left: '100px',
-      top: '150px'
-    }
-  },
-  {
-    id: uuidv4(),
-    name: 'l-text',
-    layerName: '图层2',
-    props: {
-      ...textDefaultProps,
-      text: 'hello2',
-      fontSize: '10px',
-      fontWeight: 'bold',
-      lineHeight: '2',
-      textAlign: 'left',
-      fontFamily: ''
-    }
-  }
-  // {
-  //   id: uuidv4(),
-  //   name: 'l-text',
-  //   layerName: '图层3',
-  //   props: {
-  //     ...textDefaultProps,
-  //     text: 'hello3',
-  //     fontSize: '15px',
-  //     actionType: 'url',
-  //     url: 'https://www.baidu.com',
-  //     lineHeight: '3',
-  //     textAlign: 'left',
-  //     fontFamily: ''
-  //   }
-  // },
-  // {
-  //   id: uuidv4(),
-  //   name: 'l-image',
-  //   layerName: '图层4',
-  //   props: {
-  //     ...imageDefaultProps,
-  //     src: 'http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5f3e3a17c305b1070f455202.jpg',
-  //     width: '100px'
-  //   }
-  // }
+  { id: uuidv4(), name: 'l-text', layerName:'图层1', props: { ...textDefaultProps, text: 'hello', fontSize: '20px', color: '#000000', 'lineHeight': '1', textAlign: 'left', fontFamily: '', width: '100px', height: '100px', backgroundColor: '#efefef', left: '100px', top: '150px' }},
+  // { id: uuidv4(), name: 'l-text', layerName:'图层2', props: { ...textDefaultProps, text: 'hello2', fontSize: '10px', fontWeight: 'bold', 'lineHeight': '2', textAlign: 'left', fontFamily: '' }},
+  // { id: uuidv4(), name: 'l-text', layerName:'图层3', props: { ...textDefaultProps, text: 'hello3', fontSize: '15px', actionType: 'url', url: 'https://www.baidu.com', 'lineHeight': '3', textAlign: 'left', fontFamily: '' }},
+  // { id: uuidv4(), name: 'l-image', layerName:'图层4', props: { ...imageDefaultProps, src: 'http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5f3e3a17c305b1070f455202.jpg', width: '100px' }},
 ]
-const pageDefaultProps = {
-  backgroundColor: '#ffffff',
-  backgroundImage: '',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  height: '560px'
-}
+const pageDefaultProps = { backgroundColor: '#ffffff', backgroundImage: '', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', height: '560px' }
 const debounceChange = (callback: (...args: any) => void, timeout = 1000) => {
   let timer = 0
   return (...args: any) => {
-    // console.log(timer)
+    console.log(timer)
     clearTimeout(timer)
     timer = window.setTimeout(() => {
       timer = 0
       callback(...args)
-    }, timeout)
+    }, timeout) 
   }
 }
 const pushHistory = (state: EditorProps, historyRecord: HistoryProps) => {
@@ -178,7 +118,7 @@ const pushHistory = (state: EditorProps, historyRecord: HistoryProps) => {
     // move historyIndex to unmoved
     state.historyIndex = -1
   }
-  // check length
+  // check length 
   if (state.histories.length < state.maxHistoryNumber) {
     state.histories.push(historyRecord)
   } else {
@@ -192,7 +132,7 @@ const pushHistory = (state: EditorProps, historyRecord: HistoryProps) => {
 const pushModifyHistory = (state: EditorProps, { key, value, id }: UpdateComponentData) => {
   pushHistory(state, {
     id: uuidv4(),
-    componentId: id || state.currentElement,
+    componentId: (id || state.currentElement),
     type: 'modify',
     data: { oldValue: state.cachedOldValues, newValue: value, key }
   })
@@ -271,9 +211,7 @@ const editor: Module<EditorProps, GlobalDataProps> = {
       switch (history.type) {
         case 'add':
           // if create a component, we should remove it
-          state.components = state.components.filter(
-            (component) => component.id !== history.componentId
-          )
+          state.components = state.components.filter(component => component.id !== history.componentId)
           break
         case 'delete':
           // if delete a component, we should restore it to the right position
@@ -288,7 +226,7 @@ const editor: Module<EditorProps, GlobalDataProps> = {
           break
       }
     },
-    redo(state) {
+    redo (state) {
       // can't redo when historyIndex is the last item or historyIndex is never moved
       if (state.historyIndex === -1) {
         return
@@ -302,9 +240,7 @@ const editor: Module<EditorProps, GlobalDataProps> = {
           // state.components = insertAt(state.components, history.index as number, history.data)
           break
         case 'delete':
-          state.components = state.components.filter(
-            (component) => component.id !== history.componentId
-          )
+          state.components = state.components.filter(component => component.id !== history.componentId)
           break
         case 'modify': {
           modifyHistory(state, history, 'redo')
@@ -341,7 +277,7 @@ const editor: Module<EditorProps, GlobalDataProps> = {
       const currentComponent = state.components.find((component) => component.id === id)
       if (currentComponent) {
         const currentIndex = state.components.findIndex((component) => component.id === id)
-        state.components = state.components.filter((component) => component.id !== id)
+        state.components = state.components.filter(component => component.id !== id)
         pushHistory(state, {
           id: uuidv4(),
           componentId: currentComponent.id,
@@ -386,28 +322,26 @@ const editor: Module<EditorProps, GlobalDataProps> = {
       }
     },
     updateComponent: setDirtyWrapper((state, { key, value, id, isRoot }: UpdateComponentData) => {
-      const updatedComponent = state.components.find(
-        (component) => component.id === (id || state.currentElement)
-      )
+      const updatedComponent = state.components.find((component) => component.id === (id || state.currentElement))
       if (updatedComponent) {
         if (isRoot) {
+          // https://github.com/microsoft/TypeScript/issues/31663
           (updatedComponent as any)[key as string] = value
         } else {
-          const oldValue = Array.isArray(key)
-            ? key.map((key) => updatedComponent.props[key])
-            : updatedComponent.props[key]
+          const oldValue = Array.isArray(key) ? key.map(key => updatedComponent.props[key]) : updatedComponent.props[key]
           if (!state.cachedOldValues) {
             state.cachedOldValues = oldValue
           }
-          pushHistoryDebounce(state, { key, value, id })
+          pushHistoryDebounce(state,  { key, value, id })
           if (Array.isArray(key) && Array.isArray(value)) {
             key.forEach((keyName, index) => {
               updatedComponent.props[keyName] = value[index]
             })
-          } else if (typeof key === 'string' && typeof value === 'string') {
+          } else if (typeof key ==='string' && typeof value === 'string') {
             updatedComponent.props[key] = value
           }
         }
+        
       }
     }),
     updatePage: setDirtyWrapper((state, { key, value, isRoot, isSetting }) => {
@@ -440,22 +374,22 @@ const editor: Module<EditorProps, GlobalDataProps> = {
       state.channels = data.list
     },
     createChannel(state, { data }: RespData<ChannelProps>) {
-      state.channels = [...state.channels, data]
+      state.channels = [ ...state.channels, data]
     },
     deleteChannel(state, { payload }: RespData<any>) {
       if (payload && payload.urlParams) {
         const { urlParams } = payload
-        state.channels = state.channels.filter((channel) => channel.id !== urlParams.id)
+        state.channels = state.channels.filter(channel => channel.id !== urlParams.id)
       }
     }
   },
   actions: {
     fetchWork: actionWrapper('/works/:id', 'fetchWork'),
     saveWork: actionWrapper('/works/:id', 'saveWork', { method: 'patch' }),
-    publishWork: actionWrapper('/works/publish/:id', 'publishWork', { method: 'post' }),
+    publishWork: actionWrapper('/works/publish/:id', 'publishWork', { method: 'post'}),
     fetchChannels: actionWrapper('/channel/getWorkChannels/:id', 'fetchChannels'),
-    createChannel: actionWrapper('/channel/', 'createChannel', { method: 'post' }),
-    deleteChannel: actionWrapper('/channel/:id', 'deleteChannel', { method: 'delete' })
+    createChannel: actionWrapper('/channel/', 'createChannel', { method: 'post'}),
+    deleteChannel: actionWrapper('/channel/:id', 'deleteChannel', { method: 'delete'})
   },
   getters: {
     getCurrentElement: (state) => {
@@ -479,14 +413,12 @@ const editor: Module<EditorProps, GlobalDataProps> = {
       // 1 no history item
       // 2 move to the last item
       // 3 never undo before
-      if (
-        state.histories.length === 0 ||
+      if (state.histories.length === 0 || 
         state.historyIndex === state.histories.length ||
-        state.historyIndex === -1
-      ) {
+        state.historyIndex === -1) {
         return true
       }
-      return false
+      return false      
     }
   }
 }

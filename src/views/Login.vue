@@ -1,46 +1,45 @@
 <template>
-  <div class="login-page">
-    <a-row>
-      <a-col :span="12" class="aside">
-        <div class="aside-inner">
-          <router-link to="/">
-            <img alt="慕课乐高" src="../assets/logo2.png" class="logo-img" />
-          </router-link>
-          <h2>这是我用过的最好的建站工具</h2>
-          <span class="text-white-70">王铁锤, Google</span>
-        </div>
-      </a-col>
-      <a-col :span="12" class="login-area">
-        <a-form layout="vertical" :model="form" :rules="rules" ref="loginForm">
-          <h2>欢迎回来</h2>
-          <p class="subTitle">使用手机号码和验证码登录到慕课乐高</p>
-          <a-form-item label="手机号码" required name="cellphone">
-            <a-input placeholder="手机号码" v-model:value="form.cellphone">
-              <template v-slot:prefix><UserOutlined style="color:rgba(0,0,0,.25)"/></template>
-            </a-input>
-          </a-form-item>
-          <a-form-item label="验证码" required name="verifyCode">
-            <a-input placeholder="四位验证码" v-model:value="form.verifyCode">
-              <template v-slot:prefix><LockOutlined style="color:rgba(0,0,0,.25)"/></template>
-            </a-input>
-          </a-form-item>
-          <a-form-item>
-            <a-button type="primary" size="large" @click="login" :loading="isLoginLoading">
-              登录
-            </a-button>
-            <a-button
-              size="large"
-              :style="{ marginLeft: '20px' }"
-              :disabled="codeButtonDisable"
-              @click="getCode"
-            >
-              {{ counter === 60 ? '获取验证码' : `${counter}秒后重发` }}
-            </a-button>
-          </a-form-item>
-        </a-form>
-      </a-col>
-    </a-row>
-  </div>
+<div class="login-page">
+  <a-row>
+    <a-col :span="12" class="aside">
+      <div class="aside-inner">
+        <router-link to="/">
+          <img alt="慕课乐高" src="../assets/logo2.png" class="logo-img">
+        </router-link>
+        <h2>这是我用过的最好的建站工具</h2>
+        <span class="text-white-70">王铁锤, Google</span>
+      </div>
+    </a-col>
+    <a-col :span="12" class="login-area">
+      <a-form layout="vertical" :model="form" :rules="rules" ref="loginForm">
+        <h2>欢迎回来</h2>
+        <p class="subTitle">使用手机号码和验证码登录到慕课乐高</p>
+        <a-form-item label="手机号码" required name="cellphone">
+          <a-input placeholder="手机号码" v-model:value="form.cellphone">
+            <template v-slot:prefix><UserOutlined style="color:rgba(0,0,0,.25)"/></template>
+          </a-input>
+        </a-form-item>
+        <a-form-item label="验证码" required name="verifyCode">
+          <a-input placeholder="四位验证码" v-model:value="form.verifyCode">
+            <template v-slot:prefix><LockOutlined style="color:rgba(0,0,0,.25)"/></template>
+          </a-input>
+        </a-form-item>
+        <a-form-item>
+          <a-button type="primary" size="large" @click="login" :loading="isLoginLoading">
+            登录
+          </a-button>
+          <a-button size="large"
+            :style="{ marginLeft: '20px' }"
+            :disabled="codeButtonDisable"
+            @click="getCode"
+          >
+            {{ counter === 60 ? '获取验证码' : `${counter}秒后重发` }}
+          </a-button>
+        </a-form-item>
+      </a-form>
+    </a-col>
+  </a-row>
+</div>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, ref, Ref, computed, watch } from 'vue'
@@ -53,14 +52,14 @@ import { message } from 'ant-design-vue'
 import { Rule } from 'ant-design-vue/es/form/interface'
 import { GlobalDataProps } from '../store/index'
 interface RuleFormInstance {
-  validate: () => Promise<any>
+  validate: () => Promise<any>;
 }
 export default defineComponent({
   components: {
     UserOutlined,
     LockOutlined
   },
-  setup() {
+  setup () {
     const store = useStore<GlobalDataProps>()
     const isLoginLoading = computed(() => store.getters.isOpLoading('login'))
     const router = useRouter()
@@ -72,7 +71,7 @@ export default defineComponent({
       verifyCode: ''
     })
     const codeButtonDisable = computed(() => {
-      return !/^1[3-9]\d{9}$/.test(form.cellphone.trim()) || counter.value < 60
+      return !/^1[3-9]\d{9}$/.test(form.cellphone.trim()) || (counter.value < 60)
     })
     const startCounter = () => {
       counter.value--
@@ -88,7 +87,7 @@ export default defineComponent({
     })
     const cellnumberValidator = (rule: Rule, value: string) => {
       return new Promise((resolve, reject) => {
-        const passed = /^1[3-9]\d{9}$/.test(value.trim())
+        const passed =  /^1[3-9]\d{9}$/.test(value.trim())
         setTimeout(() => {
           if (passed) {
             resolve('')
@@ -104,7 +103,9 @@ export default defineComponent({
         // { pattern: /^1[3-9]\d{9}$/, message: '手机号码格式不正确', trigger: 'blur' }
         { asyncValidator: cellnumberValidator, trigger: 'blur' }
       ],
-      verifyCode: [{ required: true, message: '验证码不能为空', trigger: 'blur' }]
+      verifyCode: [
+        { required: true, message: '验证码不能为空', trigger: 'blur' }
+      ]
     })
 
     const { validate, resetFields } = useForm(form, rules)
@@ -123,7 +124,7 @@ export default defineComponent({
       })
     }
     const getCode = () => {
-      axios.post('/users/genVeriCode', { phoneNumber: form.cellphone }).then(() => {
+      axios.post('/users/genVeriCode', { phoneNumber: form.cellphone}).then(() => {
         message.success('验证码已发送，请注意查收', 5)
         startCounter()
       })
@@ -158,7 +159,7 @@ export default defineComponent({
   margin-bottom: 20px;
 }
 .aside h2 {
-  color: #cccccc;
+  color: #CCCCCC;
   font-size: 29px;
 }
 .aside-inner {
@@ -176,8 +177,7 @@ export default defineComponent({
   display: block;
   font-size: 19px;
 }
-.aside,
-.login-area {
+.aside, .login-area {
   display: flex !important;
   align-items: center;
   justify-content: center;

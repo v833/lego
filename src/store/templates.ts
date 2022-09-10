@@ -6,10 +6,10 @@ import { PageData } from './editor'
 export type TemplateProps = Required<Omit<PageData, 'props' | 'setting'>>
 
 export interface TemplatesProps {
-  data: TemplateProps[]
-  totalTemplates: number
-  works: TemplateProps[]
-  totalWorks: number
+  data: TemplateProps[];
+  totalTemplates: number;
+  works: TemplateProps[];
+  totalWorks: number;
 }
 
 const templates: Module<TemplatesProps, GlobalDataProps> = {

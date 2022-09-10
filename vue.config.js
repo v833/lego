@@ -8,39 +8,39 @@ const isAnalyzeMode = !!process.env.ANALYZE_MODE
 module.exports = {
   // 生产环境要使用 OSS 地址
   // 其他环境都使用绝对路径
-  publicPath: isProduction && !isStaging ? 'https://oss.imooc-lego.com/editor' : '/',
+  publicPath: (isProduction && !isStaging) ? 'https://oss.imooc-lego.com/editor' : '/',
   css: {
     loaderOptions: {
       less: {
         lessOptions: {
           modifyVars: {
-            'primary-color': '#3E7FFF'
+            'primary-color': '#3E7FFF',
           },
           javascriptEnabled: true
         }
       }
     }
   },
-  configureWebpack: (config) => {
+  configureWebpack: config => {
     config.plugins.push(
       new webpack.IgnorePlugin({
         resourceRegExp: /^\.\/locale$/,
-        contextRegExp: /moment$/
+        contextRegExp: /moment$/,
       })
     )
     if (isProduction) {
       config.plugins.push(
         new CompressionWebpackPlugin({
-          algorithm: 'gzip',
+          algorithm:'gzip',
           test: /\.js$|\.html$|\.json$|\.css/,
-          threshold: 10240
+          threshold: 10240,
         })
       )
     }
     if (isAnalyzeMode) {
       config.plugins.push(
         new BundleAnalyzerPlugin({
-          analyzerMode: 'static'
+          analyzerMode: 'static',
         })
       )
     }
@@ -51,19 +51,19 @@ module.exports = {
       cacheGroups: {
         antVendor: {
           test: /[\\/]node_modules[\\/]/,
-          name(module) {
-            // get the name.
+          name (module) {
+            // get the name. 
             // node_modules/packageName/sub/path
             // or node_modules/packageName
             const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
             return `npm.${packageName.replace('@', '')}`
           }
-        }
+        },
       }
     }
   },
-  chainWebpack: (config) => {
-    config.plugin('html').tap((args) => {
+  chainWebpack: config => {
+    config.plugin('html').tap(args => {
       args[0].title = '慕课乐高'
       args[0].desc = '一键生成 H5 海报'
       return args

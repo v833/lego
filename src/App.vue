@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
-    <a-spin v-if="showLoading" tip="读取中" class="global-spinner" />
-    <router-view />
+    <a-spin v-if="showLoading" tip="读取中" class="global-spinner"/>
+    <router-view/>
   </div>
 </template>
 

@@ -15,8 +15,8 @@ import { difference } from 'lodash-es'
 import { defineComponent, PropType, computed, ref } from 'vue'
 import PropsTable from './PropsTable.vue'
 export interface GroupProps {
-  text: string
-  items: string[]
+  text: string;
+  items: string[];
 }
 const defaultEditGroups: GroupProps[] = [
   {

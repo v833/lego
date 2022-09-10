@@ -1,5 +1,10 @@
 <template>
-  <img :style="styleProps" class="l-image-component" @click.prevent="handleClick" :src="src" />
+  <img 
+    :style="styleProps" 
+    class="l-image-component" 
+    @click.prevent="handleClick"
+    :src="src"
+  />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -13,13 +18,13 @@ export default defineComponent({
   props: {
     ...defaultProps
   },
-  setup(props) {
+  setup (props) {
     // 重用并且简化
     // 抽离并且获得 styleProps
-    const { styleProps, handleClick } = useComponentCommon(props, imageStylePropsNames)
+    const { styleProps, handleClick} = useComponentCommon(props, imageStylePropsNames)
     return {
-      styleProps,
-      handleClick
+       styleProps,
+       handleClick
     }
   }
 })

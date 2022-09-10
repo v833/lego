@@ -9,17 +9,14 @@
       cancelText="取消"
     >
       <div class="image-cropper">
-        <img :src="baseImageUrl" id="processed-image" ref="cropperImg" />
+        <img :src="baseImageUrl" id="processed-image" ref="cropperImg"/>
       </div>
     </a-modal>
-    <div
-      class="image-preview"
-      :style="{ backgroundImage: backgrondUrl }"
-      :class="{ extraHeight: showDelete }"
-    ></div>
+    <div class="image-preview" :style="{ backgroundImage: backgrondUrl }" :class="{ 'extraHeight': showDelete }">
+    </div>
     <div class="image-process">
-      <styled-uploader @success="handleFileUploaded"></styled-uploader>
-      <a-button @click="showModal = true">
+      <styled-uploader  @success="handleFileUploaded"></styled-uploader>
+      <a-button  @click="showModal = true">
         <template v-slot:icon><ScissorOutlined /></template>裁剪图片
       </a-button>
       <a-button v-if="showDelete" type="danger" @click="handleDelete">
@@ -30,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watch, nextTick } from 'vue'
+import { defineComponent,  computed, ref, watch, nextTick } from 'vue'
 import { message } from 'ant-design-vue'
 import Cropper from 'cropperjs'
 import { DeleteOutlined, ScissorOutlined } from '@ant-design/icons-vue'
@@ -38,10 +35,10 @@ import StyledUploader from './StyledUploader.vue'
 import { UploadResp } from '../extraType'
 import { RespUploadData } from '../store/respTypes'
 interface CropDataProps {
-  x: number
-  y: number
-  width: number
-  height: number
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 export default defineComponent({
@@ -64,7 +61,7 @@ export default defineComponent({
     ScissorOutlined
   },
   emits: ['change', 'uploaded'],
-  setup(props, context) {
+  setup (props, context) {
     const showModal = ref(false)
     const backgrondUrl = computed(() => `url(${props.value})`)
     const baseImageUrl = computed(() => props.value.split('?')[0])
@@ -77,13 +74,14 @@ export default defineComponent({
         console.log(cropperImg.value)
         if (cropperImg.value) {
           cropper = new Cropper(cropperImg.value, {
-            crop(event) {
+            crop (event) {
               const { x, y, width, height } = event.detail
               cropData = {
                 x: Math.floor(x),
                 y: Math.floor(y),
                 width: Math.floor(width),
                 height: Math.floor(height)
+
               }
             }
           })
@@ -97,8 +95,7 @@ export default defineComponent({
     const handleOk = () => {
       if (cropData) {
         const { x, y, width, height } = cropData
-        const cropperURL =
-          baseImageUrl.value + `?x-oss-process=image/crop,x_${x},y_${y},w_${width},h_${height}`
+        const cropperURL = baseImageUrl.value + `?x-oss-process=image/crop,x_${x},y_${y},w_${width},h_${height}`
         // 不使用 阿里云 OSS，拿到截图图片再次上传的处理方法
         // 这里实现还是采用原方法，假如同学们愿意使用重新上传的方法的话，请看下面注释的代码
         // cropper.getCroppedCanvas().toBlob((blob) => {
@@ -142,29 +139,30 @@ export default defineComponent({
 </script>
 
 <style>
-.image-processer {
-  display: flex;
-  justify-content: space-between;
-}
-.image-preview {
-  width: 150px;
-  height: 84px;
-  border: 1px dashed #e6ebed;
-  background: no-repeat 50% / contain;
-}
-.image-preview.extraHeight {
-  height: 110px;
-}
-.image-process {
-  padding: 5px 0;
-  margin-left: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.image-cropper img {
-  display: block;
-  /* This rule is very important, please don't ignore this */
-  max-width: 100%;
-}
+  .image-processer {
+    display: flex;
+    justify-content: space-between;
+  }
+  .image-preview {
+    width: 150px;
+    height: 84px;
+    border: 1px dashed #e6ebed;
+    background: no-repeat 50%/contain;
+  }
+  .image-preview.extraHeight {
+    height: 110px;
+  }
+  .image-process {
+    padding: 5px 0;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .image-cropper img {
+    display: block;
+    /* This rule is very important, please don't ignore this */
+    max-width: 100%;
+  }
+
 </style>

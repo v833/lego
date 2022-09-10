@@ -1,16 +1,12 @@
 import { ref, computed, ComputedRef, reactive, toRef } from 'vue'
 import { useStore } from 'vuex'
 interface LoadParams {
-  pageIndex: number
-  pageSize: number
-  [key: string]: any
+  pageIndex: number;
+  pageSize: number;
+  [key: string]: any;
 }
 
-const useLoadMore = (
-  actionName: string,
-  total: ComputedRef<number>,
-  params: LoadParams = { pageIndex: 0, pageSize: 8 }
-) => {
+const useLoadMore = (actionName: string, total: ComputedRef<number>, params: LoadParams = { pageIndex: 0, pageSize: 8}) => {
   const store = useStore()
   // 变化的参数
   // const pageIndex = ref(params.pageIndex)
@@ -29,7 +25,7 @@ const useLoadMore = (
     store.dispatch(actionName, { searchParams: requestParams })
   }
   const isFirstPage = computed(() => requestParams.pageIndex === 0)
-  const totalPage = computed(() => Math.ceil(total.value / params.pageSize))
+  const totalPage =computed(() => Math.ceil(total.value / params.pageSize))
   const isLastPage = computed(() => {
     return totalPage.value === requestParams.pageIndex + 1
   })

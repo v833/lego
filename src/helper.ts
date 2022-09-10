@@ -5,15 +5,15 @@ import axios from 'axios'
 import QRCode from 'qrcode'
 import { saveAs } from 'file-saver'
 interface CheckCondition {
-  format?: string[]
+  format?: string[];
   // 使用多少 M 为单位
-  size?: number
+  size?: number;
 }
 type ErrorType = 'size' | 'format' | null
-export function beforeUploadCheck(file: File, condition: CheckCondition) {
+export function beforeUploadCheck (file: File, condition: CheckCondition) {
   const { format, size } = condition
   const isValidFormat = format ? format.includes(file.type) : true
-  const isValidSize = size ? file.size / 1024 / 1024 < size : true
+  const isValidSize = size ? (file.size / 1024 / 1024 < size) : true
   let error: ErrorType = null
   if (!isValidFormat) {
     error = 'format'
@@ -65,17 +65,17 @@ export const getParentElement = (element: HTMLElement, className: string) => {
 }
 
 export const insertAt = (arr: any[], index: number, newItem: any) => {
-  return [...arr.slice(0, index), newItem, ...arr.slice(index)]
+  return [
+    ...arr.slice(0, index),
+    newItem,
+    ...arr.slice(index)
+  ]
 }
 
-export function isMobile(mobile: string) {
+export function isMobile (mobile: string) {
   return /^1[3-9]\d{9}$/.test(mobile)
 }
-export async function uploadFile<R = any>(
-  file: Blob,
-  url = '/utils/upload-img',
-  fileName = 'screenshot.png'
-) {
+export async function uploadFile<R = any>(file: Blob, url = "/utils/upload-img", fileName ='screenshot.png') {
   const newFile = file instanceof File ? file : new File([file], fileName)
   const formData = new FormData()
   formData.append(newFile.name, newFile)
@@ -87,8 +87,8 @@ export async function uploadFile<R = any>(
   return data
 }
 function getCanvasBlob(canvas: HTMLCanvasElement) {
-  return new Promise<Blob | null>((resolve) => {
-    canvas.toBlob((blob) => {
+  return new Promise<Blob | null>(resolve => {
+    canvas.toBlob(blob => {
       resolve(blob)
     })
   })
@@ -133,13 +133,11 @@ export function copyToClipboard(text: string) {
 }
 
 export function timeout(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 export const objToQueryString = (queryObj: { [key: string]: any }) => {
-  return Object.keys(queryObj)
-    .map((key) => `${key}=${queryObj[key]}`)
-    .join('&')
+  return Object.keys(queryObj).map(key => `${key}=${queryObj[key]}`).join('&')
 }
 
 export const downloadFile = (src: string, fileName = 'default.png') => {
@@ -149,29 +147,22 @@ export const downloadFile = (src: string, fileName = 'default.png') => {
   link.rel = 'noopener'
   if (link.origin !== location.origin) {
     //https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/responseType
-    axios
-      .get(src, { responseType: 'blob' })
-      .then((data) => {
-        link.href = URL.createObjectURL(data.data)
-        setTimeout(() => {
-          link.dispatchEvent(new MouseEvent('click'))
-        })
-        // https://developer.mozilla.org/zh-CN/docs/Web/API/URL/revokeObjectURL
-        setTimeout(() => {
-          URL.revokeObjectURL(link.href)
-        }, 10000)
-      })
-      .catch((e) => {
-        console.error(e)
-        link.target = '_blank'
-        link.href = src
-        link.dispatchEvent(new MouseEvent('click'))
-      })
+    axios.get(src, { responseType: 'blob'}).then(data => {
+      link.href = URL.createObjectURL(data.data)
+      setTimeout(() => { link.dispatchEvent(new MouseEvent('click')) })
+      // https://developer.mozilla.org/zh-CN/docs/Web/API/URL/revokeObjectURL
+      setTimeout(() => { URL.revokeObjectURL(link.href)}, 10000 )
+    }).catch((e) => {
+      console.error(e)
+      link.target='_blank'
+      link.href= src
+      link.dispatchEvent(new MouseEvent('click'))
+    })
   } else {
-    // 设置链接属性
-    link.href = src
-    // 触发事件
-    link.dispatchEvent(new MouseEvent('click'))
+  // 设置链接属性
+  link.href= src
+  // 触发事件
+  link.dispatchEvent(new MouseEvent('click'))
   }
 }
 

@@ -3,23 +3,23 @@ import { Module, ActionContext } from 'vuex'
 import { GlobalDataProps, actionWrapper } from './index' 
 import { RespData } from './respTypes'
 export interface UserDataProps {
-  username?: string
-  id?: string
-  phoneNumber?: string
-  nickName?: string
-  description?: string
-  updatedAt?: string
-  createdAt?: string
-  iat?: number
-  exp?: number
-  picture?: string
-  gender?: string
+  username?: string;
+  id?: string;
+  phoneNumber?: string;
+  nickName?: string;
+  description?: string;
+  updatedAt?: string;
+  createdAt?: string;
+  iat?: number;
+  exp?: number;
+  picture?: string;
+  gender?: string;
 }
 
 export interface UserProps {
-  isLogin: boolean
-  token?: string
-  data: UserDataProps
+  isLogin: boolean;
+  token?: string;
+  data: UserDataProps;
 }
 
 const user: Module<UserProps, GlobalDataProps> = {
